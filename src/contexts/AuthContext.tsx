@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 import { auth, firebase } from '../services/firebase'
+import { notify } from '../utils/notify'
 
 type User = {
 	id: string
@@ -27,7 +28,10 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 			const { uid, displayName, photoURL } = result.user
 
 			if (!displayName || !photoURL) {
-				throw new Error('Missing information from Google Account.')
+				notify('error', 'Missing information from Google Account.')
+				return
+
+				// throw new Error('Missing information from Google Account.')
 			}
 
 			setUser({
@@ -44,7 +48,10 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 				const { uid, displayName, photoURL } = user
 
 				if (!displayName || !photoURL) {
-					throw new Error('Missing information from Google Account.')
+					notify('error', 'Missing information from Google Account.')
+					return
+
+					// throw new Error('Missing information from Google Account.')
 				}
 
 				setUser({
