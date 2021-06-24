@@ -50,6 +50,14 @@ const NewRoom: React.FC = () => {
 				<div className="main-content">
 					<img src={logoImg} alt="Let Me Ask" />
 
+					{!!user && (
+						<>
+							<img className="img-login" alt="avatar" src={user.avatar}></img>
+
+							<h3 className="user-login">Lucas</h3>
+						</>
+					)}
+
 					<h2>Criar uma nova sala</h2>
 
 					<form onSubmit={handleCreateRoom}>
@@ -58,6 +66,7 @@ const NewRoom: React.FC = () => {
 							placeholder="Nome da sala"
 							onChange={event => setNewRoom(event.target.value)}
 							value={newRoom}
+							autoFocus
 						/>
 
 						<Button type="submit">Criar sala</Button>
