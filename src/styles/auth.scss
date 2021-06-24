@@ -76,10 +76,33 @@
 		}
 
 		form {
+			> div {
+				position: relative;
+
+				svg {
+					position: absolute;
+					right: 0;
+					top: 0;
+					transform: translateY(50%);
+					margin-right: 16px;
+					cursor: pointer;
+
+					path {
+						stroke: #eee;
+
+						transition: stroke 300ms;
+					}
+
+					&:hover path {
+						stroke: #835afd;
+					}
+				}
+			}
+
 			input {
 				height: 50px;
 				border-radius: 8px;
-				padding: 0 16px;
+				padding: 0 54px 0 16px;
 				background: #fff;
 				border: 1px solid #a8a8b3;
 			}
