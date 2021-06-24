@@ -7,17 +7,16 @@ import logoImg from '../assets/images/logo.svg'
 import Button from '../components/Button'
 import Question from '../components/Question'
 import RoomCode from '../components/RoomCode'
+import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
 import { database } from '../services/firebase'
-
-// import { useAuth } from '../hooks/useAuth';
 
 type RoomParams = {
 	id: string
 }
 
 const AdminRoom: React.FC = () => {
-	// const { user } = useAuth();
+	const { user } = useAuth()
 	const history = useHistory()
 	const params = useParams<RoomParams>()
 	const roomId = params.id
@@ -35,8 +34,12 @@ const AdminRoom: React.FC = () => {
 	}
 
 	const handleDeleteQuestion = async (questionId: string) => {
-		if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
-			await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+		const { authorId } = await (await database.ref(`rooms/${roomId}`).get()).val()
+
+		if (user?.id === authorId) {
+			if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
+				await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+			}
 		}
 	}
 
