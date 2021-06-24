@@ -24,17 +24,23 @@ const AdminRoom: React.FC = () => {
 	const { title, questions } = useRoom(roomId)
 
 	const handleEndRoom = async () => {
-		if (window.confirm('Tem certeza que você deseja encerrar esta sala?')) {
-			await database.ref(`rooms/${roomId}`).update({
-				endedAt: new Date()
-			})
+		const roomRef = await database.ref(`rooms/${roomId}`).get()
+		const { authorId } = roomRef.val()
 
-			history.push('/')
+		if (user?.id === authorId) {
+			if (window.confirm('Tem certeza que você deseja encerrar esta sala?')) {
+				await database.ref(`rooms/${roomId}`).update({
+					endedAt: new Date()
+				})
+
+				history.push('/')
+			}
 		}
 	}
 
 	const handleDeleteQuestion = async (questionId: string) => {
-		const { authorId } = await (await database.ref(`rooms/${roomId}`).get()).val()
+		const roomRef = await database.ref(`rooms/${roomId}`).get()
+		const { authorId } = roomRef.val()
 
 		if (user?.id === authorId) {
 			if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
