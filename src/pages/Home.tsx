@@ -14,7 +14,7 @@ import { notify } from '../utils/notify'
 const Home: React.FC = () => {
 	const history = useHistory()
 
-	const [roomCode, setRoomCode] = useState('-McuWCsE20b6Q8kYUGr1')
+	const [roomCode, setRoomCode] = useState('-Mcw2fbg_Zg4wZlNflPV')
 
 	const { user, signInWithGoogle } = useAuth()
 
