@@ -14,7 +14,7 @@ import { notify } from '../utils/notify'
 const Home: React.FC = () => {
 	const history = useHistory()
 
-	const [roomCode, setRoomCode] = useState('')
+	const [roomCode, setRoomCode] = useState('-McuWCsE20b6Q8kYUGr1')
 
 	const { user, signInWithGoogle } = useAuth()
 
@@ -35,6 +35,11 @@ const Home: React.FC = () => {
 
 		if (!roomRef.exists()) {
 			notify('error', 'Room does not exists.')
+			return
+		}
+
+		if (roomRef.val().endedAt) {
+			notify('error', 'Room already closed.')
 			return
 		}
 

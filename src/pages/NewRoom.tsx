@@ -1,6 +1,6 @@
 import '../styles/auth.scss'
 
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import illustration from '../assets/images/illustration.svg'
@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { database } from '../services/firebase'
 
 const NewRoom: React.FC = () => {
-	const { user } = useAuth()
+	const { user, loading } = useAuth()
 	const history = useHistory()
 
 	const [newRoom, setNewRoom] = useState('')
@@ -29,6 +29,12 @@ const NewRoom: React.FC = () => {
 
 		history.push(`/rooms/${firebaseRoom.key}`)
 	}
+
+	useEffect(() => {
+		if (!loading && !user) {
+			history.push('/')
+		}
+	}, [history, loading, user])
 
 	return (
 		<div id="page-auth">

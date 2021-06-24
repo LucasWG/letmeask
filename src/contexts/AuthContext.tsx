@@ -11,13 +11,16 @@ type User = {
 
 type AuthContextData = {
 	user?: User
+	loading: boolean
 	signInWithGoogle(): Promise<void>
+	signOut(): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthContextProvider: React.FC = ({ children }) => {
 	const [user, setUser] = useState<User>()
+	const [loading, setLoading] = useState(true)
 
 	const signInWithGoogle = async (): Promise<void> => {
 		const provider = new firebase.auth.GoogleAuthProvider()
@@ -42,6 +45,11 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 		}
 	}
 
+	const signOut = async () => {
+		await auth.signOut()
+		setUser(undefined)
+	}
+
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			if (user) {
@@ -60,6 +68,8 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 					avatar: photoURL
 				})
 			}
+
+			setLoading(false)
 		})
 
 		return () => {
@@ -67,7 +77,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 		}
 	}, [])
 
-	return <AuthContext.Provider value={{ user, signInWithGoogle }}>{children}</AuthContext.Provider>
+	return <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)
