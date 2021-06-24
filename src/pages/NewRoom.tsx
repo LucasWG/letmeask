@@ -54,7 +54,7 @@ const NewRoom: React.FC = () => {
 						<>
 							<img className="img-login" alt="avatar" src={user.avatar}></img>
 
-							<h3 className="user-login">Lucas</h3>
+							<h3 className="user-login">{user.name}</h3>
 						</>
 					)}
 
