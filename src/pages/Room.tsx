@@ -119,8 +119,14 @@ const Room: React.FC = () => {
 				<div className="question-list">
 					{questions.map(question => {
 						return (
-							<Question content={question.content} author={question.author} key={question.id}>
-								{!!user && (
+							<Question
+								content={question.content}
+								author={question.author}
+								key={question.id}
+								isAnswered={question.isAnswered}
+								isHighlighted={question.isHighlighted}
+							>
+								{!!user && !question.isAnswered && (
 									<button
 										className={`like-button ${question.likeId ? 'liked' : ''}`}
 										type="button"
