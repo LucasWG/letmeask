@@ -11,11 +11,18 @@ import { useAuth } from '../contexts/AuthContext'
 import { database } from '../services/firebase'
 import { notify } from '../utils/notify'
 
+type FirebaseRoom = {
+	authorId: string
+	title: string
+	questions: {}
+	endedAt: string
+}
+
 const Home: React.FC = () => {
 	const history = useHistory()
 
 	const [roomCode, setRoomCode] = useState('')
-	const [rooms, setRooms] = useState<string[]>([])
+	const [rooms, setRooms] = useState<Array<string | undefined>>([])
 
 	const { user, signInWithGoogle } = useAuth()
 
@@ -55,7 +62,7 @@ const Home: React.FC = () => {
 			return
 		}
 
-		setRoomCode(random)
+		setRoomCode(random ?? '')
 	}
 
 	useEffect(() => {
@@ -63,9 +70,16 @@ const Home: React.FC = () => {
 
 		roomsRef.on('value', room => {
 			const databaseRoom = room.val()
-			const roomsResult = Object.keys(databaseRoom)
 
-			setRooms(roomsResult)
+			const fbRoom: FirebaseRoom[] = databaseRoom ?? {}
+
+			const newRooms = Object.entries(fbRoom)
+				.map(([key, value]) => {
+					return !!value.endedAt ? undefined : key
+				})
+				.filter(el => el != null)
+
+			setRooms(newRooms)
 		})
 
 		return () => {
