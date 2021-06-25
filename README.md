@@ -24,13 +24,28 @@
 
 <br>
 
+## Deploy
+
+<a href="https://letmeask-beta.vercel.app" target="_blank">[Vercel] letmeask-beta.vercel.app</a>
+<br />
+<a href="https://letmeask-c53ee.web.app" target="_blank">[Firebase] letmeask-c53ee.web.app</a>
+
+<br />
+
+---
+
+<br />
+
 ## 🧪 Technologies
 
 This project was developed using the following technologies:
 
 -   [React](https://reactjs.org)
 -   [Firebase](https://firebase.google.com/)
+-   [Sass](https://sass-lang.com/)
 -   [TypeScript](https://www.typescriptlang.org/)
+
+<br />
 
 ## 🚀 Getting started
 
@@ -53,6 +68,8 @@ $ yarn start
 
 The app will be available for access on your browser at http://localhost:3000
 
+<br />
+
 ## 🔖 Layout
 
 You can view the project layout through the links below:
@@ -61,10 +78,18 @@ You can view the project layout through the links below:
 
 Remembering that you need to have a [Figma](http://figma.com/) account to access it.
 
+<br />
+
 ## 📝 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+<br />
+
 ---
 
-<p align="center">Made with 💜 by LucasWG94</p>
+<br />
+
+<p align="center">Made with 💜 by LucasWG94 🔥</p>
+
+<br />
