@@ -52,15 +52,25 @@ const AdminRoom: React.FC = () => {
 	}
 
 	const handleCheckQuestionAsAnswered = async (questionId: string) => {
-		await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-			isAnswered: true
-		})
+		const roomRef = await database.ref(`rooms/${roomId}`).get()
+		const { authorId } = roomRef.val()
+
+		if (user?.id === authorId) {
+			await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+				isAnswered: true
+			})
+		}
 	}
 
 	const handleHighlightQuestion = async (questionId: string) => {
-		await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-			isHighlighted: true
-		})
+		const roomRef = await database.ref(`rooms/${roomId}`).get()
+		const { authorId } = roomRef.val()
+
+		if (user?.id === authorId) {
+			await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+				isHighlighted: true
+			})
+		}
 	}
 
 	return (
