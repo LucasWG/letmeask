@@ -17,7 +17,7 @@ type RoomParams = {
 }
 
 const Room: React.FC = () => {
-	const { user } = useAuth()
+	const { user, signInWithGoogle } = useAuth()
 	const params = useParams<RoomParams>()
 	const [newQuestion, setNewQuestion] = useState('')
 
@@ -59,6 +59,10 @@ const Room: React.FC = () => {
 				authorId: user?.id
 			})
 		}
+	}
+
+	const handleSignIn = async () => {
+		if (!user) await signInWithGoogle()
 	}
 
 	if (loading) return <div />
@@ -106,7 +110,7 @@ const Room: React.FC = () => {
 							</div>
 						) : (
 							<span>
-								Para enviar uma pergunta, <button>faça seu login</button>.
+								Para enviar uma pergunta, <button onClick={handleSignIn}>faça seu login</button>.
 							</span>
 						)}
 
